@@ -11,6 +11,12 @@ services:
       POSTGRES_USER: gorm
       POSTGRES_DB: app
       POSTGRES_PASSWORD: password
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+
   
   api:
     build: .

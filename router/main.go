@@ -7,22 +7,15 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func runRouter() {
+// RunRouter start router
+func RunRouter() {
 	router := mux.NewRouter()
-	router.HandleFunc("/login", loginHandler)
-	router.HandleFunc("/signup", signupHandler)
+	router.HandleFunc("/login", LoginHandler).Methods("POST")
+	router.HandleFunc("/signup", SignupHandler).Methods("POST")
 
 	server := &http.Server{
 		Addr:    os.Getenv("HOST") + ":" + os.Getenv("PORT"),
 		Handler: router,
 	}
 	server.ListenAndServe()
-}
-
-func loginHandler(w http.ResponseWriter, r *http.Request) {
-
-}
-
-func signupHandler(w http.ResponseWriter, r *http.Request) {
-
 }
