@@ -8,8 +8,8 @@ services:
     volumes:
       - "db_data:/var/lib/postgresql/data"
     environment:
-      POSTGRES_USER: gorm
-      POSTGRES_DB: app
+      POSTGRES_USER: kneegorilla
+      POSTGRES_DB: blog
       POSTGRES_PASSWORD: password
 
   redis:
