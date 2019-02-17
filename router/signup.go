@@ -13,8 +13,7 @@ import (
 	"github.com/yumuranaoki/blog-service-by-go/session"
 )
 
-// SignupHandler handle request to signup for signup
-func SignupHandler(w http.ResponseWriter, r *http.Request) {
+func signupHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("post is done,\n")
 
 	body, err := ioutil.ReadAll(r.Body)

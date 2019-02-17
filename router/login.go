@@ -5,6 +5,6 @@ import (
 )
 
 // LoginHandler handle request to login for login
-func LoginHandler(w http.ResponseWriter, r *http.Request) {
+func loginHandler(w http.ResponseWriter, r *http.Request) {
 
 }
