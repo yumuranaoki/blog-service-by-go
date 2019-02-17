@@ -8,15 +8,18 @@ import (
 )
 
 // RunRouter start router
-func RunRouter() {
-	fmt.Printf("running router")
+func RunRouter(isFinished chan bool) {
+	fmt.Printf("running router\n")
 	router := mux.NewRouter()
 	router.HandleFunc("/login", LoginHandler).Methods("POST")
 	router.HandleFunc("/signup", SignupHandler).Methods("POST")
 
 	server := &http.Server{
-		Addr:    "localhost" + ":" + "3000",
+		Addr:    "0.0.0.0:8080",
 		Handler: router,
 	}
 	server.ListenAndServe()
+	fmt.Printf("server shut down\n")
+	isFinished <- true
+	close(isFinished)
 }

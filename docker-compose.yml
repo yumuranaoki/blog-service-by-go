@@ -26,7 +26,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - '.:/go/src/github.com/yumruanaoki/first-golang-on-docker'
+      - '.:/go/src/github.com/yumuranaoki/blog-service-by-go'
     command: go run main.go
 
 volumes:

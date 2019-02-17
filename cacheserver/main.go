@@ -11,7 +11,7 @@ import (
 var RedisClient *redis.Client
 
 // Init initialize cache server
-func Init() {
+func Init(isFinished chan bool) {
 	RedisClient = redis.NewClient(&redis.Options{
 		Addr:     "redis:6379",
 		Password: "",
@@ -23,4 +23,6 @@ func Init() {
 	}
 	fmt.Printf("reids status: %s\n", status)
 	defer RedisClient.Close()
+	<-isFinished
+	fmt.Printf("reids is closed\n")
 }

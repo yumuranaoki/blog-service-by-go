@@ -12,8 +12,8 @@ import (
 var DB *gorm.DB
 
 // Init initialize database
-func Init() {
-	fmt.Printf("initialize database ...")
+func Init(isFinished chan bool) {
+	fmt.Printf("initialize database ...\n")
 	var err error
 	DB, err = gorm.Open("postgres", "host=db user=kneegorilla dbname=blog password=password sslmode=disable")
 	if err != nil {
@@ -25,4 +25,7 @@ func Init() {
 	DB.LogMode(true)
 
 	DB.AutoMigrate(&model.User{})
+
+	<-isFinished
+	fmt.Printf("database is closed\n")
 }

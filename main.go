@@ -11,9 +11,12 @@ import (
 )
 
 func main() {
-	fmt.Printf("environmental variables is")
-	router.RunRouter()
-	db.Init()
-	session.Init("hashKeyBase", "blockKeyBase")
-	cacheserver.Init()
+	isFinished := make(chan bool)
+	session.Init("hashKeyBase+++++", "blockKeyBase++++")
+	go db.Init(isFinished)
+	go cacheserver.Init(isFinished)
+	go router.RunRouter(isFinished)
+	fmt.Printf("waiting for server shut down\n")
+	<-isFinished
+	fmt.Printf("server finished\n")
 }

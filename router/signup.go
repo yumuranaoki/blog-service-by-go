@@ -16,6 +16,7 @@ import (
 // SignupHandler handle request to signup for signup
 func SignupHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("post is done,\n")
+
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -30,11 +31,14 @@ func SignupHandler(w http.ResponseWriter, r *http.Request) {
 
 	// check if data is valid
 	if true := db.DB.NewRecord(user); true {
+		fmt.Printf("data is valid\n")
 		db.DB.Create(&user)
+		fmt.Println(user)
 	}
 
 	id := user.ID
-	sessionData := map[string]uint{
+
+	sessionData := map[string]int{
 		"sessionID": id,
 	}
 	sessionToken, err := session.SessionIDGenerator.Encode("sessionID", sessionData)
@@ -55,4 +59,11 @@ func SignupHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	http.SetCookie(w, cookie)
+
+	result := map[string]string{"result": "ok"}
+	jsonResult, err := json.Marshal(result)
+	if err != nil {
+		log.Fatal(err)
+	}
+	w.Write(jsonResult)
 }
